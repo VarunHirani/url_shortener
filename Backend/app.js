@@ -16,7 +16,7 @@ dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 app.use(cors({
-    origin : 'http://localhost:5173',
+    origin : process.env.APP_URL,
     credentials: true
 })); // Enable CORS for all routes
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -30,8 +30,9 @@ app.use("/api/create",short_url);
 app.get("/:id",redirectFromShortUrl);
 app.use(errorHandler); // Use the custom error handling
 
-app.listen(3000,()=>{
-    connectDB();
-    console.log("Server is running on port http://localhost:3000");
-})
+const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => {
+    connectDB();
+    console.log(`Server is running on port ${PORT}`);
+});
