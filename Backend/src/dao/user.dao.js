@@ -20,5 +20,5 @@ export const createUser = async (name,email,password)=>{
 }
 
 export const getAllUserUrlsDao = async (id)=>{
-    return await UrlModel.find({user:id})
+    return await UrlModel.find({user:id}).sort({createdAt:-1,_id:-1})
 }

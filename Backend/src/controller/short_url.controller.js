@@ -1,5 +1,5 @@
 //import {generateNanoId} from "../utils/helper.js";
-import {createShortUrlWithoutUser, createShortUrlWithUser} from "../services/short_url.service.js";
+import {createShortUrlWithoutUser, createShortUrlWithUser, deleteShortUrlForUser} from "../services/short_url.service.js";
 import {getShortUrl} from "../dao/short_url.js";
 import wrapAsync from "../utils/tryCatchWrapper.js";
 
@@ -28,4 +28,10 @@ export const createCustomShortUrl = wrapAsync(async (req,res)=>{
     const {url,slug} = req.body
     const shortUrl = await createShortUrlWithoutUser(url,customUrl)
     res.status(200).json({shortUrl:`${process.env.BASE_URL}/${shortUrl}`})
+})
+
+export const deleteShortUrl = wrapAsync(async (req,res)=>{
+    const {id} = req.params
+    await deleteShortUrlForUser(id,req.user._id)
+    res.status(200).json({message:"URL deleted successfully"})
 })

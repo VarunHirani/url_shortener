@@ -190,21 +190,22 @@ const RegisterForm = ({state}) => {
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
+      <form onSubmit={handleSubmit} className="rounded-lg border border-gray-200 bg-white px-8 py-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <h2 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white">Create an Account</h2>
+        <p className="mb-6 text-center text-sm text-gray-500 dark:text-gray-400">Start tracking and managing your short links.</p>
         
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+          <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
             {error}
           </div>
         )}
         
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200" htmlFor="name">
             Full Name
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full rounded-md border border-gray-300 px-3 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus:ring-blue-900"
             id="name"
             type="text"
             placeholder="Full Name"
@@ -215,11 +216,11 @@ const RegisterForm = ({state}) => {
         </div>
         
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200" htmlFor="email">
             Email
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full rounded-md border border-gray-300 px-3 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus:ring-blue-900"
             id="email"
             type="email"
             placeholder="Email"
@@ -230,11 +231,11 @@ const RegisterForm = ({state}) => {
         </div>
         
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200" htmlFor="password">
             Password
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full rounded-md border border-gray-300 px-3 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus:ring-blue-900"
             id="password"
             type="password"
             placeholder="******************"
@@ -248,7 +249,7 @@ const RegisterForm = ({state}) => {
         
         <div className="flex items-center justify-between">
           <button
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className="w-full rounded-md bg-blue-600 px-4 py-3 font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             type="submit"
             disabled={loading}
           >
@@ -257,8 +258,8 @@ const RegisterForm = ({state}) => {
         </div>
         
         <div className="text-center mt-4">
-          <p className="cursor-pointer text-sm text-gray-600">
-            Already have an account? <span onClick={()=>state(true)} className="text-blue-500 hover:text-blue-700">Sign In</span>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Already have an account? <button type="button" onClick={()=>state(true)} className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400">Sign In</button>
           </p>
         </div>
       </form>

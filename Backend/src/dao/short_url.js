@@ -25,3 +25,7 @@ export const getShortUrl = async (shortUrl)=>{
 export const getCustomShortUrl = async (slug)=>{
     return await urlSchema.findOne({short_url: slug});
 }
+
+export const deleteUserShortUrl = async (urlId,userId)=>{
+    return await urlSchema.findOneAndDelete({_id:urlId,user:userId});
+}

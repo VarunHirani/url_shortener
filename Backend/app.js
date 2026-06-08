@@ -11,6 +11,7 @@ import {errorHandler} from "./src/utils/errorHandler.js";
 import cors from "cors";
 import { attachUser } from "./src/utils/attachUser.js";
 import cookieParser from "cookie-parser";
+import { createUrlRateLimiter } from "./src/middleware/rateLimit.middleware.js";
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -26,7 +27,7 @@ app.use(attachUser);
 
 app.use("/api/user",user_routes);
 app.use("/api/auth",auth_routes);
-app.use("/api/create",short_url);
+app.use("/api/create",createUrlRateLimiter,short_url);
 app.get("/:id",redirectFromShortUrl);
 app.use(errorHandler); // Use the custom error handling
 

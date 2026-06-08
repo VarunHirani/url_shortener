@@ -28,8 +28,10 @@ const RootLayout = () => {
 
   return (
     <ToastProvider>
-      <Navbar/>
-      <Outlet/>
+      <div className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+        <Navbar/>
+        <Outlet/>
+      </div>
     </ToastProvider>
   )
 }

@@ -37,21 +37,22 @@ const LoginForm = ({state})=>{
 
     return (
         <div className="w-full max-w-md mx-auto">
-            <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 py-8">
-                <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+            <form onSubmit={handleSubmit} className="rounded-lg border border-gray-200 bg-white px-8 py-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+                <h2 className="text-2xl font-bold text-center mb-2 text-gray-900 dark:text-white">Login</h2>
+                <p className="mb-6 text-center text-sm text-gray-500 dark:text-gray-400">Access your dashboard and manage your links.</p>
 
                 {error && (
-                    <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+                    <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
                         {error}
                     </div>
                 )}
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200" htmlFor="email">
                         Email
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3"
+                        className="w-full rounded-md border border-gray-300 px-3 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus:ring-blue-900"
                         id="email"
                         type="email"
                         placeholder="Email"
@@ -62,11 +63,11 @@ const LoginForm = ({state})=>{
                 </div>
                 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2"  htmlFor="password">
+                    <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200"  htmlFor="password">
                         Password
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3"
+                        className="w-full rounded-md border border-gray-300 px-3 py-3 text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:focus:ring-blue-900"
                         id="password"
                         type="password"
                         placeholder="*****************"
@@ -77,7 +78,7 @@ const LoginForm = ({state})=>{
 
                 <div className="flex items-center justify-between">
                     <button
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md transition"
+                        className="w-full rounded-md bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
                         type="submit"
                         disabled={loading}
                         >
@@ -85,12 +86,12 @@ const LoginForm = ({state})=>{
                     </button>
                 </div>
                 <div className="text-center mt-4">
-                    <p className="cursor-pointer text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                         Don't have an account? 
                         <button
                             type="button"
                             onClick={() => state(false)}
-                            className="text-blue-500 hover:text-blue-700"
+                            className="ml-1 font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
                             >
                             Register
                         </button>

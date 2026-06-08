@@ -1,25 +1,23 @@
-// import React from 'react'
-
-// const DashboardPage = () => {
-//   return (
-//     <div>DashboardPage</div>
-//   )
-// }
-
-// export default DashboardPage
-
 import UrlForm from '../components/UrlForm.jsx'
 import UserUrl from '../components/UserUrl.jsx'
 
 const DashboardPage = () => {
   return (
-    <div className="min-h-screen   bg-gray-100 flex flex-col items-center justify-center p-4">
-    <div className="bg-white -mt-20 p-8 rounded-lg shadow-md w-full max-w-4xl">
-      <h1 className="text-2xl font-bold text-center mb-6">URL Shortener</h1>
-      <UrlForm/>
-      <UserUrl/>
-    </div>
-  </div>
+    <main className="px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl space-y-8">
+        <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+          <div className="mb-6">
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400">Dashboard</p>
+            <h1 className="mt-1 text-3xl font-bold text-gray-900 dark:text-white">Manage your shortened URLs</h1>
+            <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
+              Create links, track clicks, share QR codes, and keep your aliases organized.
+            </p>
+          </div>
+          <UrlForm/>
+        </section>
+        <UserUrl/>
+      </div>
+    </main>
   )
 }
 
