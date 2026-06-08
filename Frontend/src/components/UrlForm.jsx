@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { createShortUrl } from '../apis/shortUrl.api.js'
 import { useSelector } from 'react-redux';
-import { QueryClient } from '@tanstack/react-query'
 import { queryClient } from '../main.jsx'
+import { useToast } from '../hooks/useToast.js';
 
 const URLForm = () => {
   
@@ -11,8 +11,10 @@ const URLForm = () => {
   const [copied,setCopied] = useState(false);
   const [error,setError] = useState(null);
   const [customSlug,setCustomSlug] = useState("")
+  const [loading,setLoading] = useState(false)
 
   const {isAuthenticated} = useSelector((state)=>state.auth)
+  const { showToast } = useToast()
 
   // const handleSubmit = async ()=>{
   //   /*fetch("http://localhost:3000/api/create",{
@@ -26,13 +28,18 @@ const URLForm = () => {
   //   setShortUrl(shortUrl);
   // }
     const handleSubmit = async () => {
+    setLoading(true)
     try{
       const shortUrl = await createShortUrl(url,customSlug)
       setShortUrl(shortUrl)
       queryClient.invalidateQueries({queryKey: ['userUrls']})
       setError(null)
+      showToast('Short URL created successfully')
     }catch(err){
       setError(err.message)
+      showToast(err.message || 'Could not create short URL', 'error')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -69,9 +76,10 @@ const URLForm = () => {
       <button
         onClick={handleSubmit}
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        disabled={loading}
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Shorten URL
+        {loading ? 'Shortening...' : 'Shorten URL'}
       </button>
       {error && (
         <div className='mt-4 p-3 bg-red-100 text-red-700 rounded-md'>{error}</div>

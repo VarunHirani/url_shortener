@@ -5,7 +5,6 @@ export const createShortUrlWithoutUser  = async (url)=>{
     const shortUrl = generateNanoId(7); // Generate a unique short URL identifier 
     if(!shortUrl) throw new BadRequestError("Short URL generation failed");
     await saveShortUrl(shortUrl,url)
-    console.log(shortUrl); // Log the newly created URL document
     return shortUrl;
 
 }

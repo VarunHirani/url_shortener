@@ -144,11 +144,13 @@
 // export default RegisterForm;
 
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { registerUser } from '../apis/user.api';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/slice/authSlice';
 import { useNavigate } from '@tanstack/react-router';
+import { useToast } from '../hooks/useToast.js';
+import { useQueryClient } from '@tanstack/react-query';
 
 const RegisterForm = ({state}) => {
   const [name, setName] = useState('');
@@ -158,6 +160,8 @@ const RegisterForm = ({state}) => {
   const [error, setError] = useState('');
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { showToast } = useToast()
+  const queryClient = useQueryClient()
 
   const handleSubmit = async (e) => {
     e.preventDefault();    
@@ -172,19 +176,21 @@ const RegisterForm = ({state}) => {
     
     try {
       const data = await registerUser(name, email, password);
-      setLoading(false);
       dispatch(login(data.user))
+      queryClient.setQueryData(['currentUser'], data.user)
+      showToast(data.message || 'Registration successful')
       navigate({to:"/dashboard"})
-      setLoading(false);
     } catch (err) {
-      setLoading(false);
       setError(err.message || 'Registration failed. Please try again.');
+      showToast(err.message || 'Registration failed. Please try again.', 'error')
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 className="text-2xl font-bold text-center mb-6">Create an Account</h2>
         
         {error && (
@@ -244,7 +250,6 @@ const RegisterForm = ({state}) => {
           <button
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             type="submit"
-            onClick={handleSubmit}
             disabled={loading}
           >
             {loading ? 'Creating...' : 'Create Account'}
@@ -256,7 +261,7 @@ const RegisterForm = ({state}) => {
             Already have an account? <span onClick={()=>state(true)} className="text-blue-500 hover:text-blue-700">Sign In</span>
           </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

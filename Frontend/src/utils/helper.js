@@ -34,7 +34,7 @@ export const checkAuth = async ({ context }) => {
         const {isAuthenticated} = store.getState().auth;
         if(!isAuthenticated) return false;
         return true
-    } catch (error) {
+    } catch {
         return redirect({to: "/auth"})
     }
 };

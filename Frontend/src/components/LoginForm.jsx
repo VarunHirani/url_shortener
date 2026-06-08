@@ -1,18 +1,20 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import { loginUser } from "../apis/user.api.js";
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { login } from "../store/slice/authSlice.js";
 import { useNavigate } from "@tanstack/react-router";
+import { useToast } from "../hooks/useToast.js";
+import { useQueryClient } from "@tanstack/react-query";
 
 const LoginForm = ({state})=>{
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState('');
-    const auth = useSelector((state)=> state.auth)
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    console.log(auth)
+    const { showToast } = useToast();
+    const queryClient = useQueryClient();
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -22,12 +24,14 @@ const LoginForm = ({state})=>{
         try{
             const data = await loginUser(email,password);
             dispatch(login(data.user));
+            queryClient.setQueryData(["currentUser"], data.user);
+            showToast(data.message || "Login successful");
             navigate({to: "/dashboard"})
-            setLoading(false);
-            console.log("Sign In Success");
         }catch (err){
-            setLoading(false);
             setError(err.message || "Login failed. Please check your credentials.");
+            showToast(err.message || "Login failed. Please check your credentials.", "error");
+        } finally {
+            setLoading(false);
         }
     };
 
