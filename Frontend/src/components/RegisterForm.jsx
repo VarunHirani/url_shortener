@@ -171,7 +171,7 @@ const RegisterForm = ({state}) => {
     setError('');
     
     try {
-      const data = await registerUser(name, password, email);
+      const data = await registerUser(name, email, password);
       setLoading(false);
       dispatch(login(data.user))
       navigate({to:"/dashboard"})
