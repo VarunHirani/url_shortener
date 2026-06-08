@@ -19,7 +19,7 @@ export const createShortUrl = wrapAsync(async (req, res) => {
 export const redirectFromShortUrl = wrapAsync(async (req, res) => {
     const {id} = req.params
     const url = await getShortUrl(id);
-    if(!url) throw new NotFoundError("Short URL not found");
+    if(!url) throw new Error("Short URL not found");
     res.redirect(url.full_url);
 });
 
